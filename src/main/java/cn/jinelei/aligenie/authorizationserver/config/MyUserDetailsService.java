@@ -31,6 +31,11 @@ public class MyUserDetailsService implements UserDetailsService {
         LOGGER.debug("name: {}", s);
         UserDetailsPO userDetailsPO = userDetailsDao.findUserDetailsPOByUsername(s);
         LOGGER.debug("userDetailPO: {}", userDetailsPO);
+        if (userDetailsPO == null
+                || userDetailsPO.getUsername().equals("")
+                || userDetailsPO.getPassword().equals("")
+                || userDetailsPO.getAuthorities().equals(""))
+            return null;
         return generateUser(userDetailsPO);
     }
 
@@ -44,7 +49,7 @@ public class MyUserDetailsService implements UserDetailsService {
         for (String auth : userDetailsPO.getAuthorities().split(",")) {
             authorities.add(new SimpleGrantedAuthority(auth));
         }
-        User user = new User(userDetailsPO.getUsername(), userDetailsPO.getPassword(), authorities);
+        User user = new User(userDetailsPO.getUsername(), userDetailsPO.getPassword(), userDetailsPO.isEnabled(), userDetailsPO.isAccountNonExpired(), userDetailsPO.isCredentialsNonExpired(), userDetailsPO.isAccountNonLocked(), authorities);
         LOGGER.debug("user: {}", user);
         return user;
     }

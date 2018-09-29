@@ -1,7 +1,10 @@
 package cn.jinelei.aligenie.authorizationserver.po;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity(name = "oauth_user_details")
 public class UserDetailsPO {
@@ -14,10 +17,14 @@ public class UserDetailsPO {
     private String password;
     @Column(name = "authorities", length = 128, nullable = false, unique = true)
     private String authorities;
-    @Column(name = "is_enabled", nullable = false, unique = true)
-    private boolean isEnabled;
-    @Column(name = "is_expired", nullable = false, unique = true)
-    private boolean isExpired;
+    @Column(name = "account_non_expired", nullable = false, unique = true)
+    private boolean accountNonExpired;
+    @Column(name = "account_non_locked", nullable = false, unique = true)
+    private boolean accountNonLocked;
+    @Column(name = "credentials_non_expired", nullable = false, unique = true)
+    private boolean credentialsNonExpired;
+    @Column(name = "enable", nullable = false, unique = true)
+    private boolean enabled;
 
     public int getUserId() {
         return userId;
@@ -51,61 +58,35 @@ public class UserDetailsPO {
         this.authorities = authorities;
     }
 
+    public boolean isAccountNonExpired() {
+        return accountNonExpired;
+    }
+
+    public void setAccountNonExpired(boolean accountNonExpired) {
+        this.accountNonExpired = accountNonExpired;
+    }
+
+    public boolean isAccountNonLocked() {
+        return accountNonLocked;
+    }
+
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
+    }
+
+    public boolean isCredentialsNonExpired() {
+        return credentialsNonExpired;
+    }
+
+    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+        this.credentialsNonExpired = credentialsNonExpired;
+    }
+
     public boolean isEnabled() {
-        return isEnabled;
+        return enabled;
     }
 
     public void setEnabled(boolean enabled) {
-        isEnabled = enabled;
-    }
-
-    public boolean isExpired() {
-        return isExpired;
-    }
-
-    public void setExpired(boolean expired) {
-        isExpired = expired;
-    }
-
-    public UserDetailsPO() {
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserDetailsPO that = (UserDetailsPO) o;
-        return userId == that.userId &&
-                isEnabled == that.isEnabled &&
-                isExpired == that.isExpired &&
-                Objects.equals(username, that.username) &&
-                Objects.equals(password, that.password) &&
-                Objects.equals(authorities, that.authorities);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(userId, username, password, authorities, isEnabled, isExpired);
-    }
-
-    @Override
-    public String toString() {
-        return "UserDetailsPO{" +
-                "userId=" + userId +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", authorities='" + authorities + '\'' +
-                ", isEnabled=" + isEnabled +
-                ", isExpired=" + isExpired +
-                '}';
-    }
-
-    public UserDetailsPO(String username, String password, String authorities, boolean isEnabled, boolean isExpired) {
-        this.username = username;
-        this.password = password;
-        this.authorities = authorities;
-        this.isEnabled = isEnabled;
-        this.isExpired = isExpired;
+        this.enabled = enabled;
     }
 }
