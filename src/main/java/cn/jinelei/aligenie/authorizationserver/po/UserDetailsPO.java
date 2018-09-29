@@ -26,6 +26,20 @@ public class UserDetailsPO {
     @Column(name = "enable", nullable = false, unique = true)
     private boolean enabled;
 
+    @Override
+    public String toString() {
+        return "UserDetailsPO{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", authorities='" + authorities + '\'' +
+                ", accountNonExpired=" + accountNonExpired +
+                ", accountNonLocked=" + accountNonLocked +
+                ", credentialsNonExpired=" + credentialsNonExpired +
+                ", enabled=" + enabled +
+                '}';
+    }
+
     public int getUserId() {
         return userId;
     }

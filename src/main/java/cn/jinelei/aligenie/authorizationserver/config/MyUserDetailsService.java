@@ -28,18 +28,14 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        LOGGER.debug("name: {}", s);
         UserDetailsPO userDetailsPO = userDetailsDao.findUserDetailsPOByUsername(s);
-        LOGGER.debug("userDetailPO: {}", userDetailsPO);
-        if (userDetailsPO == null
-                || userDetailsPO.getUsername().equals("")
-                || userDetailsPO.getPassword().equals("")
-                || userDetailsPO.getAuthorities().equals(""))
-            return null;
-        return generateUser(userDetailsPO);
+        UserDetails userDetails = generateUser(userDetailsPO);
+        if(userDetails == null)
+            throw new UsernameNotFoundException("Username not found");
+        return userDetails;
     }
 
-    private User generateUser(UserDetailsPO userDetailsPO) {
+    private UserDetails generateUser(UserDetailsPO userDetailsPO) {
         if (userDetailsPO == null
                 || userDetailsPO.getUsername().equals("")
                 || userDetailsPO.getPassword().equals("")
@@ -49,7 +45,7 @@ public class MyUserDetailsService implements UserDetailsService {
         for (String auth : userDetailsPO.getAuthorities().split(",")) {
             authorities.add(new SimpleGrantedAuthority(auth));
         }
-        User user = new User(userDetailsPO.getUsername(), userDetailsPO.getPassword(), userDetailsPO.isEnabled(), userDetailsPO.isAccountNonExpired(), userDetailsPO.isCredentialsNonExpired(), userDetailsPO.isAccountNonLocked(), authorities);
+        UserDetails user = new User(userDetailsPO.getUsername(), userDetailsPO.getPassword(), userDetailsPO.isEnabled(), userDetailsPO.isAccountNonExpired(), userDetailsPO.isCredentialsNonExpired(), userDetailsPO.isAccountNonLocked(), authorities);
         LOGGER.debug("user: {}", user);
         return user;
     }
