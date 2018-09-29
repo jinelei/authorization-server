@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 import java.util.Collection;
@@ -27,6 +28,7 @@ public class MyUserDetailsService implements UserDetailsService {
     private UserDetailsDao userDetailsDao;
 
     @Override
+    @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         UserDetailsPO userDetailsPO = userDetailsDao.findUserDetailsPOByUsername(s);
         UserDetails userDetails = generateUser(userDetailsPO);
