@@ -20,7 +20,6 @@ public class MyClientDetailService implements ClientDetailsService {
     public ClientDetails loadClientByClientId(String s) throws ClientRegistrationException {
         JdbcClientDetailsService jdbcClientDetailsService= new JdbcClientDetailsService(dataSource);
         ClientDetails clientDetails = jdbcClientDetailsService.loadClientByClientId(s);
-        LOGGER.debug("client details: {}", clientDetails);
         return clientDetails;
     }
 }

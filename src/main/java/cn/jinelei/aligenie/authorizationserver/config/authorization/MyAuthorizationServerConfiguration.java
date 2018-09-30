@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 
 @Configuration
 @EnableAuthorizationServer
-public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
+public class MyAuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
     @Autowired
