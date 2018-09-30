@@ -1,4 +1,4 @@
-package cn.jinelei.aligenie.authorizationserver.po;
+package cn.jinelei.aligenie.authorizationserver.config.security.po;
 
 import org.springframework.security.core.GrantedAuthority;
 

@@ -1,22 +1,18 @@
-package cn.jinelei.aligenie.authorizationserver.config;
+package cn.jinelei.aligenie.authorizationserver.config.security.service;
 
-import cn.jinelei.aligenie.authorizationserver.dao.UserDetailsDao;
-import cn.jinelei.aligenie.authorizationserver.po.UserDetailsPO;
+import cn.jinelei.aligenie.authorizationserver.config.security.dao.UserDetailsDao;
+import cn.jinelei.aligenie.authorizationserver.config.security.po.UserDetailsPO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.sql.DataSource;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -29,11 +25,11 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String s) {
         UserDetailsPO userDetailsPO = userDetailsDao.findUserDetailsPOByUsername(s);
         UserDetails userDetails = generateUser(userDetailsPO);
-        if(userDetails == null)
-            throw new UsernameNotFoundException("Username not found");
+        if (userDetails == null)
+            return null;
         return userDetails;
     }
 

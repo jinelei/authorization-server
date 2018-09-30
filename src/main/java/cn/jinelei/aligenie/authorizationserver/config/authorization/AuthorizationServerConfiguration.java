@@ -1,5 +1,7 @@
-package cn.jinelei.aligenie.authorizationserver.config;
+package cn.jinelei.aligenie.authorizationserver.config.authorization;
 
+import cn.jinelei.aligenie.authorizationserver.config.authorization.service.MyClientDetailService;
+import cn.jinelei.aligenie.authorizationserver.config.security.service.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,8 +11,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.ClientDetailsService;
-import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
@@ -27,15 +27,12 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     private AuthenticationManager authenticationManager;
     @Autowired
     private MyUserDetailsService userDetailsService;
+    @Autowired
+    private MyClientDetailService clientDetailService;
 
     @Bean // 声明TokenStore实现
     public TokenStore tokenStore() {
         return new JdbcTokenStore(dataSource);
-    }
-
-    @Bean // 声明 ClientDetails实现
-    public ClientDetailsService clientDetails() {
-        return new JdbcClientDetailsService(dataSource);
     }
 
     @Override
@@ -50,13 +47,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 // @formatter:off
-        clients.jdbc(dataSource);
-//        clients.inMemory() // 使用in-memory存储
-//                .withClient("client") // client_id
-//                .secret("secret") // client_secret
-//                .authorizedGrantTypes("authorization_code") // 该client允许的授权类型
-//                .redirectUris("http://baidu.com")
-//                .scopes("app"); // 允许的授权范围
+        clients.withClientDetails(clientDetailService);
 // @formatter:on
     }
 
