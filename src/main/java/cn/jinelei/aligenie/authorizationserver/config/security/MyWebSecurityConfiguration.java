@@ -13,6 +13,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ * @author jinelei
+ * 安全配置类
+ */
 @Order(10)
 @Configuration
 public class MyWebSecurityConfiguration extends WebSecurityConfigurerAdapter {

@@ -11,6 +11,10 @@ import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
 
+/**
+ * @author jinelei
+ * 客户端配置类，使用数据库配置
+ */
 @Service
 public class MyClientDetailService implements ClientDetailsService {
     private static final Logger LOGGER = LoggerFactory.getLogger(MyClientDetailService.class);

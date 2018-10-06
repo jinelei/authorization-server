@@ -1,11 +1,11 @@
 package cn.jinelei.aligenie.authorizationserver.config.security.po;
 
-import org.springframework.security.core.GrantedAuthority;
-
 import javax.persistence.*;
-import java.util.Objects;
-import java.util.Set;
 
+/**
+ * @author jinelei
+ * OAuth用户授权实体类
+ */
 @Entity(name = "oauth_user_details")
 public class UserDetailsPO {
     @Id

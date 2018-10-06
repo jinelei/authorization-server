@@ -16,6 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collection;
 import java.util.HashSet;
 
+/**
+ * @author jinelei
+ * 配置OAuth用户信息，使用数据库
+ */
 @Service
 public class MyUserDetailsService implements UserDetailsService {
     private static final Logger LOGGER = LoggerFactory.getLogger(MyUserDetailsService.class);

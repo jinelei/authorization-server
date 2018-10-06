@@ -7,6 +7,9 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+/**
+ * @author jinelei
+ */
 @SpringBootApplication
 public class AuthorizationServerApplication extends SpringBootServletInitializer {
 

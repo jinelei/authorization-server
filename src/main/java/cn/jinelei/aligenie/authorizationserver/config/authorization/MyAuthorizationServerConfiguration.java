@@ -18,6 +18,10 @@ import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import javax.sql.DataSource;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author jinelei
+ * 授权服务器配置类
+ */
 @Configuration
 @EnableAuthorizationServer
 public class MyAuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
